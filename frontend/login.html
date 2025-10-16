@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="login-signup">
+                        <a href="login.html" id="loginBtn" class="btn btn-outline active">Login</a>
+                        <a href="register.html" id="registerBtn" class="btn btn-primary">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Login</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Login</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Login Form -->
+    <section class="pt-5 pb-5">
+        <div class="container">
+            <div class="form-container">
+                <div id="alertBox" class="alert alert-danger hide"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <!-- Added name attribute so FormData picks it up -->
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <!-- Added name attribute so FormData picks it up -->
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+                    </div>
+                    <div class="form-group d-flex justify-content-between">
+                        <div class="form-check">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" class="form-check-input">
+                            <label for="rememberMe" class="form-check-label">Remember me</label>
+                        </div>
+                        <a href="forgot-password.html">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Login</button>
+                    <p class="text-center mt-3">
+                        Don't have an account? <a href="register.html">Sign up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About PublicVision</h3>
+                    <p>A crowdsourced civic issue reporting platform to empower citizens and enhance community engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="complaints.html">Complaints</a></li>
+                        <li><a href="statistics.html">Statistics</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Municipal Rd, City Hall</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@publicvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PublicVision. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="user-menu">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html" class="active"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <main class="container">
+        <section class="notifications-page">
+            <div class="page-header">
+                <h2>Notifications</h2>
+                <button id="markAllReadPageBtn" class="btn btn-outline">Mark All as Read</button>
+            </div>
+            
+            <div class="notifications-container">
+                <div class="notifications-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="unread">Unread</button>
+                    <button class="filter-btn" data-filter="status_change">Status Updates</button>
+                    <button class="filter-btn" data-filter="comment">Comments</button>
+                    <button class="filter-btn" data-filter="assignment">Assignments</button>
+                </div>
+                
+                <div class="notifications-list-container">
+                    <ul class="notifications-list" id="fullNotificationsList">
+                        <!-- Notifications will be populated via JavaScript -->
+                        <li class="loading-indicator">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                            <span>Loading notifications...</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="pagination" id="notificationsPagination">
+                        <!-- Pagination will be populated via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>PublicVision</h2>
+                    <p>Empowering citizens to report and track civic issues</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Navigate</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="complaints.html">Complaints</a></li>
+                            <li><a href="statistics.html">Statistics</a></li>
+                            <li><a href="about.html">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 PublicVision. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize page
+            initNavbar();
+            initAuth();
+            
+            // Initialize notifications page specific functionality
+            initNotificationsPage();
+        });
+        
+        // Initialize notifications page
+        function initNotificationsPage() {
+            // Check if user is logged in
+            if (!authApi.isAuthenticated()) {
+                window.location.href = 'login.html?redirect=notifications.html';
+                return;
+            }
+            
+            // Initialize notification service
+            notificationService.init();
+            
+            // Load all notifications (with pagination)
+            loadAllNotifications();
+            
+            // Initialize filter buttons
+            initFilterButtons();
+            
+            // Initialize mark all read button
+            const markAllReadPageBtn = document.getElementById('markAllReadPageBtn');
+            if (markAllReadPageBtn) {
+                markAllReadPageBtn.addEventListener('click', function() {
+                    notificationService.markAllAsRead();
+                });
+            }
+        }
+        
+        // Load all notifications with pagination
+        let currentPage = 0;
+        const pageSize = 20;
+        let totalPages = 1;
+        let currentFilter = 'all';
+        
+        async function loadAllNotifications(page = 0) {
+            const notificationsList = document.getElementById('fullNotificationsList');
+            const paginationContainer = document.getElementById('notificationsPagination');
+            
+            try {
+                // Add loading state
+                notificationsList.innerHTML = `
+                    <li class="loading-indicator">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        <span>Loading notifications...</span>
+                    </li>
+                `;
+                
+                // Fetch notifications from API
+                let url = `/api/notifications?page=${page}&size=${pageSize}`;
+                
+                // Apply filter if not 'all'
+                if (currentFilter !== 'all') {
+                    url += `&type=${currentFilter.toUpperCase()}`;
+                }
+                
+                const response = await apiService.get(url);
+                const { content, totalPages: total, number } = response.data;
+                
+                // Update pagination state
+                currentPage = number;
+                totalPages = total;
+                
+                // Clear loading indicator
+                notificationsList.innerHTML = '';
+                
+                // Display notifications
+                if (content.length === 0) {
+                    notificationsList.innerHTML = `
+                        <li class="notification-item empty">
+                            No notifications found
+                        </li>
+                    `;
+                } else {
+                    content.forEach(notification => {
+                        const item = createNotificationItem(notification);
+                        notificationsList.appendChild(item);
+                    });
+                }
+                
+                // Update pagination UI
+                updatePagination(paginationContainer);
+                
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+                notificationsList.innerHTML = `
+                    <li class="notification-item empty error">
+                        Error loading notifications. Please try again.
+                    </li>
+                `;
+            }
+        }
+        
+        // Create notification item element
+        function createNotificationItem(notification) {
+            const item = document.createElement('li');
+            item.className = `notification-item ${notification.isRead ? '' : 'unread'}`;
+            item.setAttribute('data-type', notification.type.toLowerCase());
+            item.setAttribute('data-id', notification.id);
+            
+            // Create notification content
+            const content = document.createElement('div');
+            content.className = 'notification-content';
+            
+            const message = document.createElement('p');
+            message.className = 'notification-message';
+            message.textContent = notification.message;
+            
+            const time = document.createElement('span');
+            time.className = 'notification-time';
+            time.textContent = formatDate(notification.sentAt);
+            
+            content.appendChild(message);
+            content.appendChild(time);
+            
+            // Create action buttons
+            const actions = document.createElement('div');
+            actions.className = 'notification-actions';
+            
+            if (!notification.isRead) {
+                const readBtn = document.createElement('button');
+                readBtn.className = 'action-btn read-btn';
+                readBtn.innerHTML = '<i class="fas fa-check"></i>';
+                readBtn.title = 'Mark as read';
+                readBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    markAsRead(notification.id);
+                });
+                actions.appendChild(readBtn);
+            }
+            
+            item.appendChild(content);
+            item.appendChild(actions);
+            
+            // Add click event to navigate
+            item.addEventListener('click', () => handleNotificationClick(notification));
+            
+            return item;
+        }
+        
+        // Update pagination UI
+        function updatePagination(container) {
+            if (!container) return;
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="pagination-btn prev ${currentPage === 0 ? 'disabled' : ''}" 
+                        ${currentPage === 0 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            
+            // Page numbers
+            const startPage = Math.max(0, currentPage - 2);
+            const endPage = Math.min(totalPages - 1, currentPage + 2);
+            
+            if (startPage > 0) {
+                paginationHTML += `
+                    <button class="pagination-btn" data-page="0">1</button>
+                    ${startPage > 1 ? '<span class="pagination-ellipsis">...</span>' : ''}
+                `;
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `
+                    <button class="pagination-btn ${i === currentPage ? 'active' : ''}" 
+                            data-page="${i}">${i + 1}</button>
+                `;
+            }
+            
+            if (endPage < totalPages - 1) {
+                paginationHTML += `
+                    ${endPage < totalPages - 2 ? '<span class="pagination-ellipsis">...</span>' : ''}
+                    <button class="pagination-btn" data-page="${totalPages - 1}">${totalPages}</button>
+                `;
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="pagination-btn next ${currentPage === totalPages - 1 ? 'disabled' : ''}" 
+                        ${currentPage === totalPages - 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            
+            container.innerHTML = paginationHTML;
+            
+            // Add event listeners to pagination buttons
+            container.querySelectorAll('.pagination-btn:not(.disabled)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let targetPage;
+                    
+                    if (this.classList.contains('prev')) {
+                        targetPage = currentPage - 1;
+                    } else if (this.classList.contains('next')) {
+                        targetPage = currentPage + 1;
+                    } else {
+                        targetPage = parseInt(this.getAttribute('data-page'), 10);
+                    }
+                    
+                    loadAllNotifications(targetPage);
+                });
+            });
+        }
+        
+        // Initialize filter buttons
+        function initFilterButtons() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active state
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    currentFilter = this.getAttribute('data-filter');
+                    
+                    // Load notifications with filter
+                    loadAllNotifications(0);
+                });
+            });
+        }
+        
+        // Handle notification click
+        function handleNotificationClick(notification) {
+            // Mark as read if unread
+            if (!notification.isRead) {
+                notificationService.markAsRead(notification.id);
+            }
+            
+            // Navigate based on notification type
+            if (notification.complaintId) {
+                window.location.href = `complaint-detail.html?id=${notification.complaintId}`;
+            }
+        }
+        
+        // Mark notification as read
+        function markAsRead(id) {
+            notificationService.markAsRead(id);
+            
+            // Update UI
+            const item = document.querySelector(`.notification-item[data-id="${id}"]`);
+            if (item) {
+                item.classList.remove('unread');
+                
+                // Remove read button
+                const readBtn = item.querySelector('.read-btn');
+                if (readBtn) {
+                    readBtn.parentNode.removeChild(readBtn);
+                }
+            }
+        }
+        
+        // Format date for display
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleString();
+        }
+    </script>
+</body>
+</html>

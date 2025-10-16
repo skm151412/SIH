@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="login-signup" id="authButtons">
+                        <a href="login.html" id="loginBtn" class="btn btn-outline">Login</a>
+                        <a href="register.html" id="registerBtn" class="btn btn-primary">Sign Up</a>
+                    </li>
+                    <li class="user-menu" id="userMenu" style="display: none;">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Contact</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section pt-5 pb-5">
+        <div class="container">
+            <div class="contact-intro">
+                <h2>Get in Touch</h2>
+                <p class="lead">We're here to answer your questions and provide support for the PublicVision platform.</p>
+                <p>Whether you're a citizen with feedback, a municipality interested in partnership, or a developer looking to contribute, we'd love to hear from you.</p>
+            </div>
+
+            <div class="contact-container">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h3>Send Us a Message</h3>
+                    <div id="alertBox" class="alert alert-danger hide"></div>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="What is this regarding?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inquiry">Inquiry Type</label>
+                            <select id="inquiry" class="form-control" required>
+                                <option value="" selected disabled>Select an option</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="partnership">Partnership Opportunities</option>
+                                <option value="feedback">Feedback & Suggestions</option>
+                                <option value="press">Press & Media</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" rows="6" placeholder="Type your message here..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" id="privacyAgree" class="form-check-input" required>
+                                <label for="privacyAgree" class="form-check-label">I agree to the <a href="privacy.html">Privacy Policy</a> and consent to being contacted via email.</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info-container">
+                    <div class="contact-info-card">
+                        <div class="contact-info-header">
+                            <h3>Contact Information</h3>
+                            <p>Reach out to us through any of these channels</p>
+                        </div>
+                        <div class="contact-info-content">
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Office Address</h4>
+                                    <p>123 Municipal Road<br>City Hall, Suite 301<br>Metropolis, State 12345</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Phone</h4>
+                                    <p>General: +1 (234) 567-8900<br>Support: +1 (234) 567-8901</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Email</h4>
+                                    <p>General: info@publicvision.com<br>Support: support@publicvision.com<br>Partnerships: partners@publicvision.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Office Hours</h4>
+                                    <p>Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM<br>Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-social">
+                            <h4>Connect With Us</h4>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h3>Find Us</h3>
+                <div id="contactMap" class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215175851331!2d-73.98576568459447!3d40.74844497932866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1625761801306!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How do I report a civic issue?</h4>
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To report an issue, create an account on PublicVision, then click on the "Add Complaint" button. Fill in the details about the issue, upload photos if available, mark the location on the map, and submit your complaint.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How can my municipality partner with PublicVision?</h4>
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We offer partnership programs for municipalities that want to integrate our platform with their existing systems. Please contact our partnerships team at partners@publicvision.com or fill out the contact form with "Partnership Opportunities" as the inquiry type.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Is my personal information secure?</h4>
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we take data privacy seriously. Personal information is encrypted and stored securely. We only share necessary information with municipal authorities to resolve reported issues. For more details, please review our <a href="privacy.html">Privacy Policy</a>.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How long does it typically take for issues to be resolved?</h4>
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Resolution times vary depending on the type and severity of the issue, as well as the responsiveness of the local authorities. Our statistics show that the average resolution time across all categories is approximately 8-10 days, with urgent issues often addressed more quickly.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How can I support PublicVision's mission?</h4>
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can support our mission by actively using the platform, reporting issues in your community, engaging with existing reports through upvotes and comments, and spreading the word about PublicVision to friends, family, and local community groups.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="more-questions">
+                    <p>Have more questions? Check out our <a href="faq.html">complete FAQ page</a> or contact us directly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About PublicVision</h3>
+                    <p>A crowdsourced civic issue reporting platform to empower citizens and enhance community engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="complaints.html">Complaints</a></li>
+                        <li><a href="statistics.html">Statistics</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Municipal Rd, City Hall</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@publicvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PublicVision. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

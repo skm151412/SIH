@@ -1,0 +1,66 @@
+/* Admin view for managing duplicate complaints */
+.duplicate-group {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.duplicate-group-header {
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.duplicate-group-header .badge {
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.duplicate-group-body {
+    padding: 16px;
+}
+
+.duplicate-item {
+    border-left: 4px solid transparent;
+    padding: 12px;
+    margin-bottom: 8px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.duplicate-item:hover {
+    border-left-color: #6c757d;
+    background-color: #f1f3f5;
+}
+
+.duplicate-item.original {
+    border-left-color: #28a745;
+    background-color: #f1f9f1;
+}
+
+.duplicate-controls {
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Modal styles for duplicate warning */
+.duplicate-warning-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#duplicateWarningModal .modal-header {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+#duplicateWarningModal .alert {
+    border-left: 4px solid #ffc107;
+}
+
+#duplicateWarningModal .list-group-item:hover {
+    background-color: #f8f9fa;
+}

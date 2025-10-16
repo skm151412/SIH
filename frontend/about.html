@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li class="login-signup" id="authButtons">
+                        <a href="login.html" id="loginBtn" class="btn btn-outline">Login</a>
+                        <a href="register.html" id="registerBtn" class="btn btn-primary">Sign Up</a>
+                    </li>
+                    <li class="user-menu" id="userMenu" style="display: none;">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>About PublicVision</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section pt-5 pb-5">
+        <div class="container">
+            <!-- Our Mission -->
+            <div class="about-mission">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="about-text">
+                            <h2>Our Mission</h2>
+                            <p class="lead">Empowering citizens to improve their communities through collaborative civic engagement.</p>
+                            <p>PublicVision is a crowdsourced civic issue reporting platform that connects citizens with local authorities to identify, track, and resolve community problems more efficiently. We believe that transparent communication and collaboration between residents and government agencies are essential for creating vibrant, well-functioning communities.</p>
+                            <p>By leveraging technology to streamline the reporting process and provide data-driven insights, PublicVision aims to transform how civic issues are addressed, making government services more responsive, accountable, and effective.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="about-image">
+                            <img src="assets/images/mission-image.jpg" alt="PublicVision Mission">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Story -->
+            <div class="about-story">
+                <h2>Our Story</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span>2023</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>The Idea is Born</h4>
+                            <p>A group of technology enthusiasts and civic-minded citizens came together with the vision of creating a platform to address the communication gap between citizens and local authorities. Frustrated by inefficient reporting systems and lack of transparency in civic issue resolution, they conceptualized PublicVision as a solution.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span>2024</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Development and Testing</h4>
+                            <p>The team secured initial funding and began developing the PublicVision platform. After months of design, development, and testing, a beta version was launched in select communities to gather feedback and refine the system.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span>2025</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Official Launch</h4>
+                            <p>PublicVision officially launched nationwide, introducing innovative features like real-time status tracking, analytical dashboards, and community engagement tools. The platform quickly gained recognition for its user-friendly interface and effectiveness in resolving civic issues.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span>Today</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Growing Impact</h4>
+                            <p>PublicVision continues to expand its reach, partnering with more municipalities and civic organizations. The platform has facilitated the resolution of thousands of community issues, from potholes and broken streetlights to waste management problems and public safety concerns.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="about-how-it-works">
+                <h2>How It Works</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-user-plus"></i>
+                            <span class="step-number">1</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Sign Up</h4>
+                            <p>Create an account to become part of the PublicVision community. Registration is free and takes just a minute.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="step-number">2</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Report Issues</h4>
+                            <p>Submit civic issues you encounter with detailed descriptions, photos, and precise locations using our interactive map.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="step-number">3</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Track Progress</h4>
+                            <p>Follow the status of your reported issues and receive real-time updates as they progress through resolution.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-users"></i>
+                            <span class="step-number">4</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Engage Community</h4>
+                            <p>Support other reports by upvoting, commenting, and sharing issues that affect your community.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="step-number">5</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Resolution</h4>
+                            <p>Authorities address the issues and provide updates. Once resolved, you can verify and provide feedback on the solution.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Team -->
+            <div class="about-team">
+                <h2>Our Team</h2>
+                <p class="team-intro">PublicVision is powered by a diverse team of dedicated professionals committed to improving civic engagement and community well-being.</p>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/team/team-1.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Alex Johnson</h4>
+                            <p class="member-role">Founder & CEO</p>
+                            <p class="member-bio">With a background in urban planning and civic technology, Alex leads the vision and strategy for PublicVision.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/team/team-2.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Priya Sharma</h4>
+                            <p class="member-role">CTO</p>
+                            <p class="member-bio">Priya oversees the technological infrastructure and development of the PublicVision platform.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/team/team-3.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Marcus Chen</h4>
+                            <p class="member-role">Head of Partnerships</p>
+                            <p class="member-bio">Marcus builds relationships with municipalities, civic organizations, and community groups.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/team/team-4.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Sophia Rodriguez</h4>
+                            <p class="member-role">UX Designer</p>
+                            <p class="member-bio">Sophia creates intuitive user experiences that make civic engagement accessible to everyone.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="join-team">
+                    <h3>Join Our Team</h3>
+                    <p>We're always looking for talented individuals who are passionate about civic engagement and technology.</p>
+                    <a href="careers.html" class="btn btn-primary">View Open Positions</a>
+                </div>
+            </div>
+
+            <!-- Impact -->
+            <div class="about-impact">
+                <h2>Our Impact</h2>
+                <div class="impact-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">5,000+</div>
+                        <div class="stat-label">Issues Resolved</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Partner Municipalities</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">10,000+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">32%</div>
+                        <div class="stat-label">Faster Resolution Time</div>
+                    </div>
+                </div>
+                <div class="impact-story">
+                    <h3>Success Stories</h3>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p>"PublicVision transformed how our city manages civic issues. The platform has increased citizen engagement and significantly reduced response times for resolving community problems."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="assets/images/testimonials/mayor.jpg" alt="Mayor">
+                            <div class="author-info">
+                                <h4>Robert Williams</h4>
+                                <p>Mayor, Riverside</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p>"As a community activist, I've seen firsthand how PublicVision empowers citizens to take an active role in improving their neighborhoods. The transparency and accountability it brings to civic processes is invaluable."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="assets/images/testimonials/activist.jpg" alt="Community Activist">
+                            <div class="author-info">
+                                <h4>Elena Martinez</h4>
+                                <p>Community Organizer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partners -->
+            <div class="about-partners">
+                <h2>Our Partners</h2>
+                <p>PublicVision collaborates with municipalities, civic organizations, and technology partners to create better communities.</p>
+                <div class="partners-grid">
+                    <div class="partner">
+                        <img src="assets/images/partners/city-hall.png" alt="City Hall">
+                    </div>
+                    <div class="partner">
+                        <img src="assets/images/partners/civic-tech.png" alt="Civic Tech Alliance">
+                    </div>
+                    <div class="partner">
+                        <img src="assets/images/partners/urban-institute.png" alt="Urban Institute">
+                    </div>
+                    <div class="partner">
+                        <img src="assets/images/partners/community-foundation.png" alt="Community Foundation">
+                    </div>
+                    <div class="partner">
+                        <img src="assets/images/partners/smart-city.png" alt="Smart City Initiative">
+                    </div>
+                    <div class="partner">
+                        <img src="assets/images/partners/tech-for-good.png" alt="Tech for Good">
+                    </div>
+                </div>
+                <div class="become-partner">
+                    <h3>Become a Partner</h3>
+                    <p>Interested in partnering with PublicVision? We'd love to explore collaboration opportunities.</p>
+                    <a href="contact.html" class="btn btn-primary">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="about-cta">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of citizens making a difference in their communities through PublicVision.</p>
+                <div class="cta-buttons">
+                    <a href="register.html" class="btn btn-primary btn-lg">Sign Up Now</a>
+                    <a href="how-it-works.html" class="btn btn-outline btn-lg">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About PublicVision</h3>
+                    <p>A crowdsourced civic issue reporting platform to empower citizens and enhance community engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="complaints.html">Complaints</a></li>
+                        <li><a href="statistics.html">Statistics</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Municipal Rd, City Hall</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@publicvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PublicVision. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/about.js"></script>
+</body>
+</html>

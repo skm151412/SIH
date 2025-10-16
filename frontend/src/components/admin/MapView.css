@@ -1,0 +1,191 @@
+.map-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px); /* Adjust based on your header/navbar height */
+  overflow: hidden;
+}
+
+.map-controls {
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.map-controls h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.view-toggle {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.view-toggle button {
+  flex: 1;
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-toggle button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.view-toggle button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.view-toggle button.active {
+  background-color: #4c6ef5;
+  color: white;
+  border-color: #4c6ef5;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filter-item label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.filter-item select,
+.filter-item input,
+.react-datepicker-wrapper {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.date-filter .react-datepicker-wrapper {
+  width: 100%;
+}
+
+.loading-indicator {
+  padding: 10px;
+  background-color: #fffde7;
+  border-left: 3px solid #ffd600;
+  margin-bottom: 15px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.map-view {
+  flex: 1;
+  position: relative;
+}
+
+/* Popup styling */
+.popup-content {
+  min-width: 200px;
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.popup-content p {
+  margin: 5px 0;
+}
+
+.popup-content a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #4c6ef5;
+  text-decoration: none;
+}
+
+.popup-content a:hover {
+  text-decoration: underline;
+}
+
+/* Legend */
+.map-legend {
+  position: absolute;
+  bottom: 25px;
+  left: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+/* Ensure that the leaflet container fills the map view */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Custom marker cluster styling */
+.marker-cluster-small {
+  background-color: rgba(181, 226, 140, 0.6);
+}
+.marker-cluster-small div {
+  background-color: rgba(110, 204, 57, 0.6);
+}
+
+.marker-cluster-medium {
+  background-color: rgba(241, 211, 87, 0.6);
+}
+.marker-cluster-medium div {
+  background-color: rgba(240, 194, 12, 0.6);
+}
+
+.marker-cluster-large {
+  background-color: rgba(253, 156, 115, 0.6);
+}
+.marker-cluster-large div {
+  background-color: rgba(241, 128, 23, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .filter-item {
+    min-width: 100%;
+  }
+}

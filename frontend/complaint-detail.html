@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Details - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/feedback.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Leaflet Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Lightbox for Images -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html" class="active">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="login-signup" id="authButtons">
+                        <a href="login.html" id="loginBtn" class="btn btn-outline">Login</a>
+                        <a href="register.html" id="registerBtn" class="btn btn-primary">Sign Up</a>
+                    </li>
+                    <li class="user-menu" id="userMenu" style="display: none;">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" id="complaintHeader">
+        <div class="container">
+            <h1 id="complaintTitle">Loading complaint...</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="complaints.html">Complaints</a></li>
+                <li class="active" id="complaintId">Details</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Complaint Details Section -->
+    <section class="complaint-detail-section pt-5 pb-5">
+        <div class="container">
+            <!-- Status Bar -->
+            <div class="status-bar" id="statusBar">
+                <div class="status-badge pending" id="statusBadge">
+                    <i class="fas fa-clock"></i>
+                    <span id="statusText">Pending</span>
+                </div>
+                <div class="status-timeline">
+                    <div class="timeline-item active" data-status="PENDING">
+                        <div class="timeline-point"></div>
+                        <div class="timeline-content">
+                            <h4>Submitted</h4>
+                            <p id="submittedDate">June 15, 2023</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-status="IN_PROGRESS">
+                        <div class="timeline-point"></div>
+                        <div class="timeline-content">
+                            <h4>In Progress</h4>
+                            <p id="inProgressDate">-</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-status="RESOLVED">
+                        <div class="timeline-point"></div>
+                        <div class="timeline-content">
+                            <h4>Resolved</h4>
+                            <p id="resolvedDate">-</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-status="CLOSED">
+                        <div class="timeline-point"></div>
+                        <div class="timeline-content">
+                            <h4>Closed</h4>
+                            <p id="closedDate">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="complaint-detail-container">
+                <!-- Complaint Main Details -->
+                <div class="complaint-main">
+                    <div class="complaint-header">
+                        <div class="complaint-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span id="complaintUser">John Doe</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span id="complaintDate">June 15, 2023</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-tag"></i>
+                                <span id="complaintCategory">Roads & Infrastructure</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span id="complaintSeverity" class="severity high">High</span>
+                            </div>
+                        </div>
+
+                        <div class="complaint-actions" id="complaintActions">
+                            <button class="btn btn-sm btn-outline upvote-btn" id="upvoteBtn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span id="upvoteCount">24</span>
+                                <span>Upvote</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline share-btn" id="shareBtn">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </button>
+                            <div class="complaint-admin-actions" id="adminActions" style="display: none;">
+                                <button class="btn btn-sm btn-primary status-update-btn" id="statusUpdateBtn">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Update Status</span>
+                                </button>
+                                <button class="btn btn-sm btn-outline assign-btn" id="assignBtn">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Assign</span>
+                                </button>
+                            </div>
+                            <div class="complaint-owner-actions" id="ownerActions" style="display: none;">
+                                <button class="btn btn-sm btn-outline edit-btn" id="editBtn">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button class="btn btn-sm btn-danger delete-btn" id="deleteBtn">
+                                    <i class="fas fa-trash"></i>
+                                    <span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="complaint-body">
+                        <h3>Description</h3>
+                        <p id="complaintDescription">
+                            Loading complaint description...
+                        </p>
+
+                        <h3>Location</h3>
+                        <div class="complaint-location">
+                            <div id="complaintMap" class="complaint-map"></div>
+                            <div class="location-details">
+                                <p id="complaintAddress">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>123 Main Street, Downtown</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>Images</h3>
+                        <div class="complaint-images" id="complaintImages">
+                            <!-- Images will be loaded here via JavaScript -->
+                            <div class="complaint-image-placeholder">Loading images...</div>
+                        </div>
+
+                        <!-- Updates from Municipality -->
+                        <div class="municipality-updates" id="municipalityUpdates">
+                            <h3>Updates from Municipality</h3>
+                            <div class="updates-list" id="updatesList">
+                                <!-- Updates will be loaded here via JavaScript -->
+                                <div class="no-updates">No updates yet from the municipality</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complaint Sidebar -->
+                <div class="complaint-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Similar Complaints</h3>
+                        <div class="similar-complaints" id="similarComplaints">
+                            <!-- Similar complaints will be loaded here via JavaScript -->
+                            <div class="loading-indicator">Loading similar complaints...</div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Department</h3>
+                        <div class="department-info" id="departmentInfo">
+                            <div class="department-name" id="departmentName">
+                                <i class="fas fa-building"></i>
+                                <span>Roads & Infrastructure Department</span>
+                            </div>
+                            <div class="department-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>+1 234 567 8901</span>
+                            </div>
+                            <div class="department-email">
+                                <i class="fas fa-envelope"></i>
+                                <span>roads@cityhall.gov</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Statistics</h3>
+                        <div class="complaint-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Avg. Resolution Time:</div>
+                                <div class="stat-value" id="avgResolutionTime">7 days</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Similar Issues Reported:</div>
+                                <div class="stat-value" id="similarIssuesCount">12</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Complaints in Area:</div>
+                                <div class="stat-value" id="areaComplaints">32</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section" id="feedbackSection" style="display: none;">
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h3><i class="fas fa-star"></i> Rate this resolution</h3>
+                    </div>
+                    <div class="card-body" id="feedbackContainer">
+                        <!-- Feedback form will be shown here when complaint is resolved -->
+                        <div id="feedbackForm" style="display: none;">
+                            <p>How would you rate the resolution of your complaint?</p>
+                            <div class="star-rating mb-3">
+                                <i class="fas fa-star star" data-rating="1"></i>
+                                <i class="fas fa-star star" data-rating="2"></i>
+                                <i class="fas fa-star star" data-rating="3"></i>
+                                <i class="fas fa-star star" data-rating="4"></i>
+                                <i class="fas fa-star star" data-rating="5"></i>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackComment">Comments (Optional)</label>
+                                <textarea id="feedbackComment" class="form-control" rows="3" placeholder="Tell us about your experience..."></textarea>
+                            </div>
+                            <button id="submitFeedbackBtn" class="btn btn-primary">Submit Feedback</button>
+                        </div>
+                        
+                        <!-- Feedback display when already submitted -->
+                        <div id="existingFeedback" style="display: none;">
+                            <div class="d-flex align-items-center mb-3">
+                                <h4 class="mb-0 mr-3">Your rating:</h4>
+                                <div class="stars-display" id="ratingDisplay"></div>
+                            </div>
+                            <div id="feedbackText" class="mb-3">
+                                <p class="font-italic">Your feedback: <span id="feedbackContent"></span></p>
+                            </div>
+                            <p class="text-muted small">Feedback submitted on <span id="feedbackDate"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reopen Request Section -->
+            <div class="reopen-section" id="reopenSection" style="display: none;">
+                <div class="card border-warning mb-4">
+                    <div class="card-header bg-light">
+                        <h3><i class="fas fa-redo"></i> Reopen this complaint</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="reopenForm">
+                            <p>If you're not satisfied with the resolution, you can request to reopen this complaint.</p>
+                            <div class="form-group">
+                                <label for="reopenReason">Reason for reopening</label>
+                                <textarea id="reopenReason" class="form-control" rows="3" placeholder="Please explain why this complaint should be reopened..."></textarea>
+                            </div>
+                            <button id="submitReopenBtn" class="btn btn-warning">Request Reopen</button>
+                        </div>
+                        
+                        <!-- Shown when complaint is reopened -->
+                        <div id="reopenedInfo" style="display: none;">
+                            <div class="alert alert-warning">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>This complaint has been reopened</strong>
+                                <p id="reopenReasonDisplay"></p>
+                                <p class="small mt-2">Reopened on <span id="reopenedDate"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <h3>Comments <span id="commentCount">(0)</span></h3>
+                
+                <div class="comment-form" id="commentForm">
+                    <div class="form-group">
+                        <textarea id="commentText" class="form-control" rows="3" placeholder="Add your comment..."></textarea>
+                    </div>
+                    <button id="submitCommentBtn" class="btn btn-primary">Submit Comment</button>
+                </div>
+                
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be loaded here via JavaScript -->
+                    <div class="loading-indicator">Loading comments...</div>
+                </div>
+                
+                <div class="load-more" id="loadMoreComments" style="display: none;">
+                    <button class="btn btn-outline">Load More Comments</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About PublicVision</h3>
+                    <p>A crowdsourced civic issue reporting platform to empower citizens and enhance community engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="complaints.html">Complaints</a></li>
+                        <li><a href="statistics.html">Statistics</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Municipal Rd, City Hall</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@publicvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PublicVision. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Status Update Modal -->
+    <div class="modal" id="statusUpdateModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Complaint Status</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="statusUpdateForm">
+                    <div class="form-group">
+                        <label for="newStatus">New Status</label>
+                        <select id="newStatus" class="form-control">
+                            <option value="PENDING">Pending</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="RESOLVED">Resolved</option>
+                            <option value="CLOSED">Closed</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="statusUpdateComment">Update Comment</label>
+                        <textarea id="statusUpdateComment" class="form-control" rows="4" placeholder="Provide details about this status update..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline modal-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Modal -->
+    <div class="modal" id="assignModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Assign Complaint</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="assignForm">
+                    <div class="form-group">
+                        <label for="assignDepartment">Department</label>
+                        <select id="assignDepartment" class="form-control">
+                            <option value="">Select Department</option>
+                            <option value="1">Roads & Infrastructure</option>
+                            <option value="2">Water Supply</option>
+                            <option value="3">Waste Management</option>
+                            <option value="4">Electricity</option>
+                            <option value="5">Public Transport</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignOfficer">Assign To Officer</label>
+                        <select id="assignOfficer" class="form-control">
+                            <option value="">Select Officer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignComment">Comment</label>
+                        <textarea id="assignComment" class="form-control" rows="4" placeholder="Add instructions or notes for the assigned officer..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline modal-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Assign Complaint</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share Complaint</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-url">
+                    <label>Complaint URL</label>
+                    <div class="url-container">
+                        <input type="text" id="shareUrl" class="form-control" readonly>
+                        <button id="copyUrlBtn" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="share-buttons">
+                    <button class="btn share-facebook">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook</span>
+                    </button>
+                    <button class="btn share-twitter">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </button>
+                    <button class="btn share-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </button>
+                    <button class="btn share-email">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteConfirmModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete Complaint</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Are you sure you want to delete this complaint? This action cannot be undone.</p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline modal-cancel">Cancel</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Delete Complaint</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/components/feedback-components.js"></script>
+    <script src="js/complaint-detail.js"></script>
+</body>
+</html>

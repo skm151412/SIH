@@ -1,0 +1,111 @@
+/* Styles for feedback and rating functionality */
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.star:hover, 
+.star.selected {
+    color: #ffc107;
+}
+
+.stars-display {
+    display: flex;
+}
+
+.stars-display i {
+    font-size: 1.5rem;
+    margin-right: 0.2rem;
+}
+
+/* Feedback Card */
+.card-header.bg-light {
+    background-color: #f8f9fa;
+}
+
+/* Update Timeline */
+.update-item {
+    display: flex;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.update-item:not(:last-child):before {
+    content: '';
+    position: absolute;
+    left: 44px;
+    top: 24px;
+    bottom: -14px;
+    width: 2px;
+    background-color: #e9ecef;
+}
+
+.update-time {
+    width: 100px;
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-align: right;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+}
+
+.update-content {
+    flex: 1;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    border-left: 4px solid #dee2e6;
+}
+
+.update-content .badge {
+    margin-bottom: 0.5rem;
+}
+
+.update-text {
+    margin-bottom: 0.25rem;
+}
+
+.update-user {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-align: right;
+    font-style: italic;
+}
+
+/* Reopen styles */
+.card.border-warning {
+    border-color: #ffc107;
+}
+
+/* Update badges */
+.badge-info {
+    background-color: #17a2b8;
+}
+
+.badge-primary {
+    background-color: #007bff;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+}

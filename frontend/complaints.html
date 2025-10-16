@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Leaflet Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html" class="active">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="login-signup" id="authButtons">
+                        <a href="login.html" id="loginBtn" class="btn btn-outline">Login</a>
+                        <a href="register.html" id="registerBtn" class="btn btn-primary">Sign Up</a>
+                    </li>
+                    <li class="user-menu" id="userMenu" style="display: none;">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Community Complaints</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Complaints</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Complaints Section -->
+    <section class="complaints-section pt-5 pb-5">
+        <div class="container">
+            <!-- Search and Filter -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="complaintSearch" class="form-control" placeholder="Search complaints...">
+                    <button id="searchBtn" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="filter-options">
+                    <select id="categoryFilter" class="form-control">
+                        <option value="">All Categories</option>
+                        <option value="ROADS">Roads & Infrastructure</option>
+                        <option value="WASTE_MANAGEMENT">Waste Management</option>
+                        <option value="WATER_SUPPLY">Water Supply</option>
+                        <option value="SANITATION">Sanitation</option>
+                        <option value="ELECTRICITY">Electricity</option>
+                        <option value="PUBLIC_TRANSPORT">Public Transport</option>
+                        <option value="STREET_LIGHTING">Street Lighting</option>
+                        <option value="PARKS_RECREATION">Parks & Recreation</option>
+                        <option value="PUBLIC_SAFETY">Public Safety</option>
+                        <option value="OTHERS">Others</option>
+                    </select>
+                    <select id="statusFilter" class="form-control">
+                        <option value="">All Statuses</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="RESOLVED">Resolved</option>
+                        <option value="CLOSED">Closed</option>
+                    </select>
+                    <select id="sortOption" class="form-control">
+                        <option value="date_desc">Newest First</option>
+                        <option value="date_asc">Oldest First</option>
+                        <option value="upvotes_desc">Most Upvoted</option>
+                        <option value="severity_desc">Highest Severity</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="btn btn-icon active" id="listViewBtn" title="List View">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="btn btn-icon" id="gridViewBtn" title="Grid View">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="btn btn-icon" id="mapViewBtn" title="Map View">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- View Container -->
+            <div class="view-container">
+                <!-- List View (Default) -->
+                <div class="list-view active" id="listView">
+                    <div class="complaints-list" id="complaintsList">
+                        <!-- Complaints will be loaded here via JavaScript -->
+                        <div class="empty-state" id="complaintsEmptyState" style="display:none;">
+                            <i class="fas fa-inbox"></i>
+                            <p>No complaints yet. Be the first to report an issue!</p>
+                        </div>
+                        <div class="loading-state" id="complaintsLoadingState">
+                            <div class="loading-spinner"></div>
+                            <p>Loading complaints...</p>
+                        </div>
+                    </div>
+                    <div class="pagination" id="complaintsPagination">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <button class="pagination-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grid View -->
+                <div class="grid-view" id="gridView">
+                    <div class="complaints-grid" id="complaintsGrid">
+                        <!-- Complaints will be loaded here via JavaScript -->
+                    </div>
+                    <div class="pagination" id="gridPagination">
+                        <!-- Pagination will be loaded here via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Map View -->
+                <div class="map-view" id="mapView">
+                    <div id="complaintsMap" class="complaints-map">
+                        <!-- Map will be loaded here via JavaScript -->
+                    </div>
+                    <div class="map-sidebar">
+                        <h3>Complaints Near You</h3>
+                        <div class="map-complaint-list" id="mapComplaintList">
+                            <!-- Nearby complaints will be loaded here via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Complaint Button (Only visible when logged in) -->
+            <div class="floating-action" id="addComplaintBtn">
+                <a href="submit-complaint.html" class="btn btn-floating">
+                    <i class="fas fa-plus"></i>
+                </a>
+                <span class="tooltip">Add Complaint</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Have an issue to report?</h2>
+                <p>Join our community effort to improve public infrastructure and services.</p>
+                <a href="register.html" class="btn btn-lg btn-light" id="ctaButton">Sign Up & Report Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About PublicVision</h3>
+                    <p>A crowdsourced civic issue reporting platform to empower citizens and enhance community engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="complaints.html">Complaints</a></li>
+                        <li><a href="statistics.html">Statistics</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Municipal Rd, City Hall</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@publicvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PublicVision. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/websocket-service.js"></script>
+    <script src="js/complaints-list.js"></script>
+</body>
+</html>

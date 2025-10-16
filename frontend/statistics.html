@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Leaflet Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Heatmap for Leaflet -->
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html">Complaints</a></li>
+                    <li><a href="statistics.html" class="active">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="login-signup" id="authButtons">
+                        <a href="login.html" id="loginBtn" class="btn btn-outline">Login</a>
+                        <a href="register.html" id="registerBtn" class="btn btn-primary">Sign Up</a>
+                    </li>
+                    <li class="user-menu" id="userMenu" style="display: none;">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Statistics & Analytics</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Statistics</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section pt-5 pb-5">
+        <div class="container">
+            <!-- Stats Filters -->
+            <div class="stats-filters">
+                <div class="filter-group">
+                    <label for="timeFilter">Time Period:</label>
+                    <select id="timeFilter" class="form-control">
+                        <option value="7">Last 7 Days</option>
+                        <option value="30" selected>Last 30 Days</option>
+                        <option value="90">Last 3 Months</option>
+                        <option value="180">Last 6 Months</option>
+                        <option value="365">Last Year</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="areaFilter">Area:</label>
+                    <select id="areaFilter" class="form-control">
+                        <option value="all" selected>All Areas</option>
+                        <option value="north">North Zone</option>
+                        <option value="south">South Zone</option>
+                        <option value="east">East Zone</option>
+                        <option value="west">West Zone</option>
+                        <option value="central">Central Zone</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="categoryFilter">Category:</label>
+                    <select id="categoryFilter" class="form-control">
+                        <option value="all" selected>All Categories</option>
+                        <option value="ROADS">Roads & Infrastructure</option>
+                        <option value="WASTE_MANAGEMENT">Waste Management</option>
+                        <option value="WATER_SUPPLY">Water Supply</option>
+                        <option value="SANITATION">Sanitation</option>
+                        <option value="ELECTRICITY">Electricity</option>
+                        <option value="PUBLIC_TRANSPORT">Public Transport</option>
+                        <option value="STREET_LIGHTING">Street Lighting</option>
+                        <option value="PARKS_RECREATION">Parks & Recreation</option>
+                        <option value="PUBLIC_SAFETY">Public Safety</option>
+                        <option value="OTHERS">Others</option>
+                    </select>
+                </div>
+                <button id="applyFilters" class="btn btn-primary">
+                    <i class="fas fa-filter"></i>
+                    Apply Filters
+                </button>
+            </div>
+
+            <!-- Dynamic Summary (populated by statistics.js) -->
+            <div id="summaryStats" class="stats-summary">
+                <div class="loading-placeholder">Loading statistics...</div>
+            </div>
+
+            <!-- Charts Row 1 -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Complaints Over Time</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-outline" id="showLinear">
+                                <i class="fas fa-chart-line"></i>
+                                Linear
+                            </button>
+                            <button class="btn btn-sm btn-outline active" id="showCumulative">
+                                <i class="fas fa-chart-area"></i>
+                                Cumulative
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="complaintsTimeChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Complaints by Category</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-outline active" id="showPieChart">
+                                <i class="fas fa-chart-pie"></i>
+                                Pie
+                            </button>
+                            <button class="btn btn-sm btn-outline" id="showBarChart">
+                                <i class="fas fa-chart-bar"></i>
+                                Bar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 2 -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Status Distribution</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Resolution Time by Category</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="resolutionTimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heatmap -->
+            <div class="full-width-chart">
+                <div class="chart-header">
+                    <h3>Complaint Density Heatmap</h3>
+                    <div class="chart-actions">
+                        <button class="btn btn-sm btn-outline active" id="showAllHeatmap">
+                            All Complaints
+                        </button>
+                        <button class="btn btn-sm btn-outline" id="showUnresolvedHeatmap">
+                            Unresolved Only
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <div id="heatmapContainer" class="heatmap-container"></div>
+                </div>
+            </div>
+
+            <!-- Trend Analysis -->
+            <div class="stats-trends">
+                <div class="chart-header">
+                    <h3>Trend Analysis</h3>
+                    <div class="chart-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Showing month-over-month changes in complaint volumes and resolution rates</span>
+                    </div>
+                </div>
+                <div class="trends-grid">
+                    <div class="trend-card">
+                        <h4>Most Improved Areas</h4>
+                        <ol class="trend-list" id="improvedAreasList">
+                            <li>
+                                <span class="trend-name">East Zone</span>
+                                <span class="trend-value up">24%</span>
+                            </li>
+                            <li>
+                                <span class="trend-name">Central Zone</span>
+                                <span class="trend-value up">18%</span>
+                            </li>
+                            <li>
+                                <span class="trend-name">North Zone</span>
+                                <span class="trend-value up">12%</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="trend-card">
+                        <h4>Most Improved Categories</h4>
+                        <ol class="trend-list" id="improvedCategoriesList">
+                            <li>
+                                <span class="trend-name">Street Lighting</span>
+                                <span class="trend-value up">30%</span>
+                            </li>
+                            <li>
+                                <span class="trend-name">Roads & Infrastructure</span>
+                                <span class="trend-value up">22%</span>
+                            </li>
+                            <li>
+                                <span class="trend-name">Waste Management</span>
+                                <span class="trend-value up">15%</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="trend-card">
+                        <h4>Needs Improvement</h4>
+                        <ol class="trend-list" id="needsImprovementList">
+                            <li>
+                                <span class="trend-name">Water Supply</span>
+                                <span class="trend-value down">8%</span>
+                            </li>
+                            <li>
+                                <span class="trend-name">Public Transport</span>
+                                <span class="trend-value down">5%</span>
+                            </li>
+                            <li>
+                                <span class="trend-name">West Zone</span>
+                                <span class="trend-value down">3%</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="trend-card">
+                        <h4>Monthly Growth</h4>
+                        <div class="trend-chart">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Report Section -->
+            <div class="report-section">
+                <h3>Generate Custom Report</h3>
+                <div class="report-container">
+                    <div class="report-options">
+                        <div class="form-group">
+                            <label for="reportType">Report Type</label>
+                            <select id="reportType" class="form-control">
+                                <option value="summary">Summary Report</option>
+                                <option value="detailed">Detailed Analysis</option>
+                                <option value="comparison">Comparative Report</option>
+                                <option value="trend">Trend Analysis</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportPeriod">Time Period</label>
+                            <select id="reportPeriod" class="form-control">
+                                <option value="last30">Last 30 Days</option>
+                                <option value="last90">Last 3 Months</option>
+                                <option value="last180">Last 6 Months</option>
+                                <option value="lastyear">Last Year</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div id="customDateRange" class="date-range" style="display: none;">
+                            <div class="form-group">
+                                <label for="startDate">Start Date</label>
+                                <input type="date" id="startDate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">End Date</label>
+                                <input type="date" id="endDate" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportFormat">Format</label>
+                            <select id="reportFormat" class="form-control">
+                                <option value="pdf">PDF Document</option>
+                                <option value="excel">Excel Spreadsheet</option>
+                                <option value="csv">CSV File</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="includeCharts">Include</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="includeCharts" class="form-check-input" checked>
+                                <label for="includeCharts" class="form-check-label">Charts & Graphs</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="includeData" class="form-check-input" checked>
+                                <label for="includeData" class="form-check-label">Raw Data</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="includeTrends" class="form-check-input" checked>
+                                <label for="includeTrends" class="form-check-label">Trend Analysis</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button id="generateReportBtn" class="btn btn-lg btn-primary">
+                            <i class="fas fa-file-download"></i>
+                            Generate Report
+                        </button>
+                        <p class="report-note">
+                            <i class="fas fa-info-circle"></i>
+                            Reports are generated in real-time based on the most recent data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About PublicVision</h3>
+                    <p>A crowdsourced civic issue reporting platform to empower citizens and enhance community engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="complaints.html">Complaints</a></li>
+                        <li><a href="statistics.html">Statistics</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Municipal Rd, City Hall</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@publicvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PublicVision. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/websocket-service.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/statistics-realtime.js"></script>
+</body>
+</html>

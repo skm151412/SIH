@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PublicVision</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/export.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <h1>PublicVision</h1>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="complaints.html">Complaints</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="notification-container">
+                        <div class="notification-bell" id="notificationBell">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                            
+                            <!-- Notification Dropdown -->
+                            <div class="notification-dropdown" id="notificationDropdown">
+                                <div class="notification-header">
+                                    <h3>Notifications</h3>
+                                    <button id="markAllReadBtn" class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <ul class="notification-list" id="notificationList">
+                                    <!-- Notifications will be populated via JavaScript -->
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="user-menu">
+                        <a href="#" id="userMenuToggle">
+                            <span id="userDisplayName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar" id="dashboardSidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4 id="sidebarUserName">User Name</h4>
+                        <p id="sidebarUserRole">Citizen</p>
+                    </div>
+                </div>
+                <button id="sidebarToggle" class="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="active">
+                        <a href="#overview" data-tab="overview">
+                            <i class="fas fa-home"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#my-complaints" data-tab="my-complaints">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>My Complaints</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#notifications" data-tab="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="badge" id="notificationBadge">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#activity" data-tab="activity">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Activity</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings" data-tab="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="admin-only" id="adminMenuSection">
+                        <a href="#admin" data-tab="admin">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Admin Panel</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Top Stats -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Complaints</h3>
+                        <p id="totalComplaints">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Resolved</h3>
+                        <p id="resolvedComplaints">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>In Progress</h3>
+                        <p id="progressComplaints">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-hourglass-start"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Pending</h3>
+                        <p id="pendingComplaints">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-pane active">
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Recent Complaints</h2>
+                            <a href="submit-complaint.html" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> New Complaint
+                            </a>
+                        </div>
+                        <div class="section-content">
+                            <div class="table-responsive">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentComplaintsTable">
+                                        <!-- Complaints will be loaded here via JavaScript -->
+                                        <tr class="table-loading">
+                                            <td colspan="6">Loading complaints...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Complaint Analytics</h2>
+                        </div>
+                        <div class="section-content charts-container">
+                            <div class="chart-box">
+                                <h4>Complaints by Category</h4>
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <h4>Complaint Status</h4>
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Recent Notifications</h2>
+                            <a href="#notifications" data-tab="notifications" class="btn btn-text">View All</a>
+                        </div>
+                        <div class="section-content">
+                            <ul class="notification-list" id="recentNotificationsList">
+                                <!-- Notifications will be loaded here via JavaScript -->
+                                <li class="no-notification">No recent notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Complaints Tab -->
+                <div id="my-complaints" class="tab-pane">
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>My Complaints</h2>
+                            <div class="section-header-actions">
+                                <div class="filter-container">
+                                    <select id="complaintStatusFilter" class="form-control">
+                                        <option value="">All Statuses</option>
+                                        <option value="PENDING">Pending</option>
+                                        <option value="IN_PROGRESS">In Progress</option>
+                                        <option value="RESOLVED">Resolved</option>
+                                        <option value="CLOSED">Closed</option>
+                                        <option value="REJECTED">Rejected</option>
+                                    </select>
+                                    <select id="complaintCategoryFilter" class="form-control">
+                                        <option value="">All Categories</option>
+                                        <option value="ROADS">Roads & Infrastructure</option>
+                                        <option value="WASTE_MANAGEMENT">Waste Management</option>
+                                        <option value="WATER_SUPPLY">Water Supply</option>
+                                        <option value="SANITATION">Sanitation</option>
+                                        <option value="ELECTRICITY">Electricity</option>
+                                        <option value="PUBLIC_TRANSPORT">Public Transport</option>
+                                        <option value="STREET_LIGHTING">Street Lighting</option>
+                                        <option value="PARKS_RECREATION">Parks & Recreation</option>
+                                        <option value="PUBLIC_SAFETY">Public Safety</option>
+                                        <option value="OTHERS">Others</option>
+                                    </select>
+                                </div>
+                                <a href="submit-complaint.html" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> New Complaint
+                                </a>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="table-responsive">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Upvotes</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myComplaintsTable">
+                                        <!-- Complaints will be loaded here via JavaScript -->
+                                        <tr class="table-loading">
+                                            <td colspan="7">Loading your complaints...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pagination" id="complaintsPagination">
+                                <!-- Pagination will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Tab -->
+                <div id="notifications" class="tab-pane">
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Notifications</h2>
+                            <button id="markAllReadBtn" class="btn btn-outline">
+                                <i class="fas fa-check-double"></i> Mark All Read
+                            </button>
+                        </div>
+                        <div class="section-content">
+                            <ul class="notification-list full-list" id="allNotificationsList">
+                                <!-- Notifications will be loaded here via JavaScript -->
+                                <li class="no-notification">No notifications found</li>
+                            </ul>
+                            <div class="pagination" id="notificationsPagination">
+                                <!-- Pagination will be loaded here via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Tab -->
+                <div id="activity" class="tab-pane">
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Activity Log</h2>
+                        </div>
+                        <div class="section-content">
+                            <ul class="activity-timeline" id="activityTimeline">
+                                <!-- Activity log will be loaded here via JavaScript -->
+                                <li class="no-activity">No recent activity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="tab-pane">
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Account Settings</h2>
+                        </div>
+                        <div class="section-content">
+                            <form id="profileForm">
+                                <div class="form-group">
+                                    <label for="settingsName">Name</label>
+                                    <input type="text" id="settingsName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settingsEmail">Email</label>
+                                    <input type="email" id="settingsEmail" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="settingsPhone">Phone</label>
+                                    <input type="tel" id="settingsPhone" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Change Password</h2>
+                        </div>
+                        <div class="section-content">
+                            <form id="passwordForm">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="newPassword" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmNewPassword">Confirm New Password</label>
+                                    <input type="password" id="confirmNewPassword" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Notification Preferences</h2>
+                        </div>
+                        <div class="section-content">
+                            <form id="notificationPreferencesForm">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="emailNotifications" class="form-check-input">
+                                        <label for="emailNotifications" class="form-check-label">Email Notifications</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="statusUpdates" class="form-check-input">
+                                        <label for="statusUpdates" class="form-check-label">Status Updates</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="commentNotifications" class="form-check-input">
+                                        <label for="commentNotifications" class="form-check-label">Comment Notifications</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Preferences</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Panel Tab (Only visible to admins) -->
+                <div id="admin" class="tab-pane">
+                    <div class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Administration</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="admin-menu">
+                                <a href="admin/complaints.html" class="admin-menu-item">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <span>Manage Complaints</span>
+                                </a>
+                                <a href="admin/users.html" class="admin-menu-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>User Management</span>
+                                </a>
+                                <a href="admin/categories.html" class="admin-menu-item">
+                                    <i class="fas fa-tags"></i>
+                                    <span>Categories</span>
+                                </a>
+                                <a href="admin/reports.html" class="admin-menu-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Reports</span>
+                                </a>
+                                <a href="admin/settings.html" class="admin-menu-item">
+                                    <i class="fas fa-cogs"></i>
+                                    <span>System Settings</span>
+                                </a>
+                            </div>
+                            
+                            <!-- Export Section -->
+                            <div class="dashboard-section mt-4">
+                                <div class="section-header">
+                                    <h3><i class="fas fa-file-export"></i> Export Data</h3>
+                                </div>
+                                <div class="section-content" id="exportComponentContainer">
+                                    <!-- Export component will be rendered here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/websocket-service.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/components/export-component.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard-realtime.js"></script>
+    
+    <!-- CSS for notifications -->
+    <link rel="stylesheet" href="css/notifications.css">
+    
+    <!-- Toastify for notifications -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>

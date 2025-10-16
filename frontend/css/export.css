@@ -1,0 +1,76 @@
+/* Export Component Styles */
+.export-container {
+    margin: 20px 0;
+}
+
+.export-panel {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.export-panel .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 15px 20px;
+}
+
+.export-panel .card-header h3 {
+    margin: 0;
+    color: #343a40;
+    font-size: 18px;
+}
+
+.export-panel .card-body {
+    padding: 20px;
+}
+
+/* Form controls */
+.export-panel .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 8px 12px;
+    transition: border-color 0.15s ease-in-out;
+}
+
+.export-panel .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Export button */
+#export-button {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+#export-button:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+#export-button:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Format selection */
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-input {
+    margin-top: 0.3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .export-panel .row {
+        margin-bottom: 15px;
+    }
+}

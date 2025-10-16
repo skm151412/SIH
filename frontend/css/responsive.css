@@ -1,0 +1,193 @@
+/* Responsive Styles */
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .step {
+        min-width: 200px;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .steps-container, .stats-container {
+        gap: 20px;
+    }
+    
+    .footer-content {
+        gap: 30px;
+    }
+    
+    .footer-section {
+        min-width: 200px;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .navbar-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: white;
+        transition: 0.3s;
+        box-shadow: var(--box-shadow);
+    }
+    
+    .navbar-menu.active {
+        left: 0;
+    }
+    
+    .navbar-menu ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 0;
+    }
+    
+    .navbar-menu li {
+        margin: 15px 0;
+    }
+    
+    .navbar-toggle {
+        display: flex;
+    }
+    
+    .login-signup {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .steps-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .step {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-card {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .footer-section {
+        width: 100%;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-section p {
+        font-size: 1rem;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .container {
+        width: 95%;
+    }
+    
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .step-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .step-icon i {
+        font-size: 2rem;
+    }
+    
+    .issue-card {
+        min-width: 100%;
+    }
+    
+    .btn-lg {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    #issuesMap {
+        height: 350px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 359.98px) {
+    .navbar-brand a {
+        font-size: 1.2rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+}
