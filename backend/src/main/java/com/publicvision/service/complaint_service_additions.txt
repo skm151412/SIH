@@ -1,0 +1,25 @@
+    /**
+     * Gets paginated list of escalated complaints
+     * 
+     * @param page Page number
+     * @param size Page size
+     * @return Page of complaint DTOs
+     */
+    public Page<ComplaintDTO> getEscalatedComplaints(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dueDate").ascending());
+        Page<Complaint> complaints = complaintRepository.findByEscalatedTrue(pageable);
+        return complaints.map(ComplaintDTO::fromComplaint);
+    }
+
+    /**
+     * Sets the due date for a new complaint based on SLA rules
+     * (72 hours from creation by default)
+     * 
+     * @param complaint The complaint to set due date for
+     * @return The complaint with due date set
+     */
+    private Complaint setDueDate(Complaint complaint) {
+        // Set due date to 72 hours after creation
+        complaint.setDueDate(complaint.getCreatedAt().plusHours(72));
+        return complaint;
+    }

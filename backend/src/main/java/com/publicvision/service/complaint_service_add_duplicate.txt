@@ -1,0 +1,17 @@
+    /**
+     * Checks for duplicate complaints and updates the complaint accordingly
+     * 
+     * @param complaint The newly created complaint to check
+     * @return The original complaint if a duplicate is found, null otherwise
+     */
+    private Complaint checkAndHandleDuplicates(Complaint complaint) {
+        Complaint originalComplaint = duplicateComplaintService.checkForDuplicate(complaint);
+        
+        if (originalComplaint != null) {
+            // Mark as duplicate and link to original
+            duplicateComplaintService.markAsDuplicate(complaint, originalComplaint);
+            return originalComplaint;
+        }
+        
+        return null;
+    }
